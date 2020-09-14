@@ -35,9 +35,11 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
+
 	@JsonIgnore
 	private String senha;
+
+	private String imageUrl;
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -46,11 +48,10 @@ public class Cliente implements Serializable {
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
-	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name="PERFIS")
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
-	
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
@@ -109,7 +110,7 @@ public class Cliente implements Serializable {
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -125,13 +126,21 @@ public class Cliente implements Serializable {
 	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil.getCod());
 	}
-	
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public Set<String> getTelefones() {
