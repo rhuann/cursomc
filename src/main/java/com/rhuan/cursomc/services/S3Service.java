@@ -40,15 +40,14 @@ public class S3Service {
 
 	public URI uploadFile(InputStream is, String fileName, String contentType) {
 		try {
-			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentType(contentType);
-			LOG.info("Iniciando upload!");
-			s3client.putObject(bucketName, fileName, is, metadata);
-			LOG.info("Iniciando finalizado!");
+			ObjectMetadata meta = new ObjectMetadata();
+			meta.setContentType(contentType);
+			LOG.info("Iniciando upload");
+			s3client.putObject(bucketName, fileName, is, meta);
+			LOG.info("Upload finalizado");
 			return s3client.getUrl(bucketName, fileName).toURI();
 		} catch (URISyntaxException e) {
 			throw new FileException("Erro ao converter URL para URI");
 		}
 	}
-
 }
